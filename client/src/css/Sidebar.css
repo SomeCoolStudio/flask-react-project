@@ -1,0 +1,13 @@
+
+#sidebar {
+
+    align-items: start;
+    position: sticky;
+    font-size: 25px;
+    position: absolute;
+    flex-direction: column;
+    top: 98px;
+    z-index: 1;
+    background-color: gray;
+    width: 150px;
+}
