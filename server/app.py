@@ -3,6 +3,7 @@ import os
 from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from flask_migrate import Migrate
 from dotenv import load_dotenv
 
@@ -16,7 +17,7 @@ from resources.user import bp as UserBlueprint
 
 
 def create_app(db_url=None):
-    app = Flask (__name__) 
+    app = Flask (__name__)   
     load_dotenv()
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -34,6 +35,7 @@ def create_app(db_url=None):
 
     app.config["JWT_SECRET_KEY"] = "Temporary Secret Key"
     jwt = JWTManager(app)
+    CORS(app)
 
     @jwt.token_in_blocklist_loader
     def check_if_token_in_blocklist(jwt_header, jwt_payload):

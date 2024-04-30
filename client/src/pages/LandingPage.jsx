@@ -1,5 +1,5 @@
 import Body from "../components/Body"
-import LoginForm from "../components/LoginForm"
+import LoginForm from "../components/forms/LoginForm"
 import BackgroundVideo from "../components/BackgroundVideo"
 import Header from "../components/Header"
 

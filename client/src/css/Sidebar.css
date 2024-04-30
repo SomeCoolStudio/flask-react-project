@@ -1,13 +1,13 @@
 
 #sidebar {
 
-    align-items: start;
+    align-items: flex-start;
     position: sticky;
     font-size: 25px;
-    position: absolute;
+    position: sticky;
     flex-direction: column;
-    top: 98px;
+    bottom: 200px;
     z-index: 1;
     background-color: gray;
     width: 150px;
-}
+}  

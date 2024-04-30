@@ -1,9 +1,11 @@
-import axios from 'axios';
+// import axios from 'axios';
 import Container from 'react-bootstrap/Container'
 
 import { useState, useEffect } from 'react';
 
 import LandingPage from './pages/LandingPage';
+import RegisterPage from './pages/RegisterPage';
+
 
 
 export default function App() {
@@ -18,9 +20,9 @@ export default function App() {
   //   fetchAPI();
   // }, []);
 
-  return (
+  return ( 
     <Container>
-      <LandingPage />
+      <RegisterPage />
     </Container>
   )
 }

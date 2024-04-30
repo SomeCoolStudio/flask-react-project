@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 export default function Sidebar() {
     return (
+        <div>
         <Navbar>
             <Container id='sidebar'>
                 <Nav.Item>
@@ -21,5 +22,6 @@ export default function Sidebar() {
                 </Nav.Item>
             </Container>
         </Navbar>
+        </div>
     );
 }

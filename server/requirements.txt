@@ -5,5 +5,6 @@ sqlalchemy
 flask-sqlalchemy
 flask-jwt-extended
 flask-migrate
+flask-cors
 passlib
 psycopg2

@@ -22,9 +22,11 @@ class UserRegister(MethodView):
     def post(self, user_data):
 
         user = UserModel( 
-            username=user_data["username"], 
-            password=pbkdf2_sha256.hash(user_data["password"])
-            
+            username=user_data["username"],
+            email=user_data["email"],
+            password=pbkdf2_sha256.hash(user_data["password"]),
+            first_name=user_data["first_name"],
+            last_name=user_data["last_name"]
         )
 
         print (user)

@@ -9,9 +9,11 @@ import './css/LoginForm.css'
 import './css/LoginBtn.css'
 import './css/Header.css'
 import './css/Sidebar.css'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <BrowserRouter></BrowserRouter>
     <App />
   </React.StrictMode>,
 )
