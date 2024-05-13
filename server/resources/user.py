@@ -7,7 +7,7 @@ from flask_jwt_extended import create_access_token, create_refresh_token, get_jw
 from db import db
 from blocklist import BLOCKLIST
 from models import UserModel
-from schemas import UserSchema
+from schemas import UserSchema, UserUpdateSchema
 
 
 bp = Blueprint("Users", __name__, description="Operations on users")
@@ -24,12 +24,10 @@ class UserRegister(MethodView):
         user = UserModel( 
             username=user_data["username"],
             email=user_data["email"],
-            password=pbkdf2_sha256.hash(user_data["password"]),
-            first_name=user_data["first_name"],
-            last_name=user_data["last_name"]
+            password=pbkdf2_sha256.hash(user_data["password"])
         )
+        # user = UserModel(**user_data]))
 
-        print (user)
         try:
             db.session.add(user)
             db.session.commit()
@@ -48,6 +46,7 @@ class UserLogin(MethodView):
     @bp.arguments(UserSchema)
     def post(self, user_data):
         user = UserModel.query.filter(UserModel.username == user_data["username"]).first()
+        print(user_data)
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(identity=user.id)
@@ -55,7 +54,6 @@ class UserLogin(MethodView):
         abort (401, message="Invalid credentials")
 
     
-
 @bp.route("/refresh")
 class UserLogout(MethodView):
     
@@ -87,6 +85,22 @@ class User(MethodView):
         user = UserModel.query.get_or_404(user_id)
         return user
     
+  # Update a user by id
+    @bp.arguments(UserUpdateSchema)
+    @bp.response(200, UserSchema)
+    def put(self, user_data, user_id):
+        user = UserModel.query.get(user_id)
+        if user:
+            for k , v in user_data.items():
+                setattr(user, k, v)
+
+        else:
+            user = UserModel(id=user_id, **user_data)
+
+        db.session.add(user)
+        db.session.commit()
+        return user
+
     #  Delete user
     def delete(self, user_id):
         user = UserModel.query.get_or_404(user_id)

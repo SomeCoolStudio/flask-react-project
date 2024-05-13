@@ -11,8 +11,8 @@ from db import db
 from blocklist import BLOCKLIST
 import models
 
-from resources.item import bp as ItemBlueprint
-from resources.store import bp as StoreBlueprint
+from resources.scoreboard import bp as ScoreboardBlueprint
+from resources.game import bp as GameBlueprint
 from resources.user import bp as UserBlueprint
 
 
@@ -21,7 +21,7 @@ def create_app(db_url=None):
     load_dotenv()
 
     app.config["PROPAGATE_EXCEPTIONS"] = True
-    app.config["API_TITLE"] = "Stores REST API"
+    app.config["API_TITLE"] = "Games REST API"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.0.3"
     app.config["OPENAPI_URL_PREFIX"] = "/"
@@ -74,8 +74,8 @@ def create_app(db_url=None):
         return (jsonify({"message": "Request does not contain an access token.", "error": "authorization_required"}), 401,)
 
 
-    api.register_blueprint(ItemBlueprint)
-    api.register_blueprint(StoreBlueprint)
+    api.register_blueprint(ScoreboardBlueprint)
+    api.register_blueprint(GameBlueprint)
     api.register_blueprint(UserBlueprint)
 
     return app

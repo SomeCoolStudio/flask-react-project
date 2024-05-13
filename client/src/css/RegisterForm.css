@@ -1,0 +1,32 @@
+#text-for-register{
+    
+    background-color: darkgray;
+    border: 5px outset gray;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px black inset;
+    padding: 35px 35px 35px 35px;
+    position: absolute;
+    color: #ffffff;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 600px;
+    font-size: 20px;
+    text-align: center;
+    
+  }
+
+  .title {
+    padding: 0px 35px 20px 35px;
+  }
+
+  #margin_bottom {
+    margin-bottom: 30px;
+    border-radius: 5px
+  }
+
+  #line_break{
+    border-top: 1px solid gray;
+    margin-bottom: 1px;
+  }

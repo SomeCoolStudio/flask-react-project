@@ -1,0 +1,19 @@
+
+#login-btn {
+    background: linear-gradient(to right, blue, red, orange);
+    margin-right: 20px;
+    margin-top: 40px;
+}
+
+#create-account-btn {
+    background: linear-gradient(to right, blue, red, orange);
+    margin-right: 20px;
+    margin-top: 40px;
+}
+
+#register-btn {
+    background: linear-gradient(to right, blue, red, orange);
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: larger;
+}

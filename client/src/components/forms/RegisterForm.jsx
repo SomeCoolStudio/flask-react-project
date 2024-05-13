@@ -1,54 +1,74 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 import Container from "react-bootstrap/esm/Container";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UserContext } from "../../contexts/UserContext";
 
 
 export default function RegisterForm() {
 
-    const [user, setUser] = useState({});
+    const [newUserData, setNewUserData] = useState({});
+    const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
 
-    async function RegisterUserFunction(){
-        const res = await fetch("http://127.0.0.1:5000/register",{
+    useEffect(() => {
+        if (user.accessToken) navigate('/')
+    }, [])
+
+
+    async function RegisterUserFunction() {
+        const res = await fetch("http://127.0.0.1:5000/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(newUserData)
         })
-        if (res.ok){
+        if (res.ok) {
             const data = await res.json();
             console.log(data);
-        }else console.error("Login Failed")
+            toast(`${newUserData.username} Registered!`);
+            navigate('/');
+        } else console.error("Login Failed")
     }
 
-    function HandleRegisterFormSubmit(e){
+    function HandleRegisterFormSubmit(e) {
         e.preventDefault();
 
-        if (user.password !== user.confirmPassword) {
+        if (newUserData.password !== newUserData.confirmPassword) {
             window.alert("Passwords Must Match!");
             return;
         }
-        delete user.confirmPassword;
-        console.log(user, 'submitted');
+        delete newUserData.confirmPassword;
+        console.log(newUserData, 'submitted');
         RegisterUserFunction();
     }
 
     return (
         <Container>
-            <h3>Register</h3>
-            <form action="" onSubmit={HandleRegisterFormSubmit}>
-                <label htmlFor="username">Username</label><br />
-                <input type="text" name="username" value={user.username} onChange={(e) => { setUser ({ ...user, username:e.target.value }) }} required/> <br />
-                <label htmlFor="email">Email</label><br />
-                <input type="text" name="email" value={user.email} onChange={(e) => { setUser ({ ...user, email:e.target.value }) }} required/> <br />
-                <label htmlFor="password">Password</label><br />
-                <input type="password" name="password" value={user.password} onChange={(e) => { setUser ({ ...user, password:e.target.value }) }} required/> <br />
-                <label htmlFor="confirm-password">Confirm-Password</label><br />
-                <input type="password" name="confirm-password" onChange={(e) => { setUser ({ ...user, confirmPassword:e.target.value }) }} required/> <br />
-                <label htmlFor="first-name">First-Name</label><br />
-                <input type="text" name="first-name" value={user.first_name} onChange={(e) => { setUser ({ ...user, first_name:e.target.value }) }} /> <br />
-                <label htmlFor="last-name">Last-Name</label><br />
-                <input type="text" name="last-name" value={user.last_name} onChange={(e) => { setUser ({ ...user, last_name:e.target.value }) }} /> <br />
-                <input type="submit" name="register" value="Register"/>
+
+            <form id="text-for-register" action="" onSubmit={HandleRegisterFormSubmit}>
+                <h3 className="title">Register To Play!</h3>
+                <div id="line_break" ></div>
+                <label htmlFor="username"></label>
+                <input placeholder="Username" id="margin_bottom" type="text" name="username" value={newUserData.username} onChange={(e) => { setNewUserData({ ...newUserData, username: e.target.value }) }} required /> 
+                <div id="line_break" ></div>
+                <label htmlFor="email"></label>
+                <input placeholder="Email" id="margin_bottom" type="text" name="email" value={newUserData.email} onChange={(e) => { setNewUserData({ ...newUserData, email: e.target.value }) }} required />
+                <div id="line_break" ></div>
+                <label htmlFor="password"></label>
+                <input placeholder="Password" id="margin_bottom" type="password" name="password" value={newUserData.password} onChange={(e) => { setNewUserData({ ...newUserData, password: e.target.value }) }} required />
+                <label htmlFor="confirm-password"></label>
+                <input placeholder="Confirm-Password" id="margin_bottom" type="password" name="confirm-password" onChange={(e) => { setNewUserData({ ...newUserData, confirmPassword: e.target.value }) }} required /> 
+                <div id="line_break" ></div>
+                <label htmlFor="first-name"></label>
+                <input placeholder="First-Name" id="margin_bottom" type="text" name="first-name" value={newUserData.first_name} onChange={(e) => { setNewUserData({ ...newUserData, first_name: e.target.value }) }} /> 
+                <div id="line_break" ></div>
+                <label htmlFor="last-name"></label>
+                <input placeholder="Last-Name" id="margin_bottom" type="text" name="last-name" value={newUserData.last_name} onChange={(e) => { setNewUserData({ ...newUserData, last_name: e.target.value }) }} />
+                <input  as={Link} to='/register' id='register-btn' variant="primary" type="submit" />
             </form>
         </Container>
     )

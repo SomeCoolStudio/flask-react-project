@@ -1,0 +1,10 @@
+
+.WebGL{
+    width: 960px;
+    height: 545px;
+    left: 49.7%;
+    top: 56.5%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    /* border: 5px outset gray; */
+}
