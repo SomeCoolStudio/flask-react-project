@@ -1,15 +1,13 @@
-from flask import request
+
 from flask.views import MethodView
-from flask_smorest import Blueprint, abort
+from flask_smorest import abort
 from flask_jwt_extended import jwt_required
 from sqlalchemy.exc import SQLAlchemyError
 from db import db
 from models import ScoreboardModel
 from schemas import ScoreboardSchema, ScoreboardUpdateSchema, PlainScoreboardSchema
-import json
 
-
-bp = Blueprint("Items", __name__, description="Operations on items")
+from . import bp
 
 
 @bp.route("/scoreboard/<int:scoreboard_id>")

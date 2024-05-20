@@ -1,12 +1,11 @@
 from flask.views import MethodView
-from flask_smorest import Blueprint, abort
+from flask_smorest import abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from db import db
-from models import GameModel
+from models.game_model import GameModel
 from schemas import GameSchema
 
-
-bp = Blueprint("Games", __name__, description="Operations on games")
+from . import bp
 
 
 @bp.route("/game/<int:game_id>")

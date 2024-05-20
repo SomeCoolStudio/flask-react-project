@@ -1,5 +1,5 @@
 from flask.views import MethodView
-from flask_smorest import Blueprint, abort
+from flask_smorest import abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_jwt
@@ -9,8 +9,7 @@ from blocklist import BLOCKLIST
 from models import UserModel
 from schemas import UserSchema, UserUpdateSchema
 
-
-bp = Blueprint("Users", __name__, description="Operations on users")
+from . import bp
 
 
 @bp.route("/register")
@@ -26,8 +25,7 @@ class UserRegister(MethodView):
             email=user_data["email"],
             password=pbkdf2_sha256.hash(user_data["password"])
         )
-        # user = UserModel(**user_data]))
-
+       
         try:
             db.session.add(user)
             db.session.commit()
