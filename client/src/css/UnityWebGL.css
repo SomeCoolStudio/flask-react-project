@@ -6,5 +6,6 @@
     top: 56.5%;
     transform: translate(-50%, -50%);
     position: absolute;
+    user-select: none;  
     /* border: 5px outset gray; */
 }
